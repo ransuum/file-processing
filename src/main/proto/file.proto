@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.acme";
+option java_outer_classname = "FileGrpcProto";
+
+package file;
+
+import "google/protobuf/empty.proto";
+
+message FileMetaData {
+  bytes data = 1;
+}
+
+message File {
+  string        id = 1;
+  string      name = 2;
+  string createdAt = 3;
+}
+
+message FilesList {
+  repeated File files = 1;
+}
+
+message FileUploadRequest {
+  string name = 1;
+  bytes  data = 2;
+}
+
+message FileDownloadRequest {
+  string id = 1;
+}
+
+message FileDeleteRequest {
+  string id = 1;
+}
+
+message FileUpdateRequest {
+  string name = 1;
+}
+
+service FileService {
+  rpc DownloadFile (FileDownloadRequest)   returns (FileMetaData);
+  rpc UploadFile   (FileUploadRequest)     returns (google.protobuf.Empty);
+  rpc DeleteFile   (FileDeleteRequest)     returns (google.protobuf.Empty);
+  rpc UpdateFile   (FileUpdateRequest)     returns (google.protobuf.Empty);
+  rpc GetFiles     (google.protobuf.Empty) returns (FilesList);
+}
+
