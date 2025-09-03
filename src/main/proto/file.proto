@@ -41,7 +41,7 @@ message FileUpdateRequest {
 
 service FileService {
   rpc DownloadFile (FileDownloadRequest)   returns (FileMetaData);
-  rpc UploadFile   (FileUploadRequest)     returns (google.protobuf.Empty);
+  rpc UploadFile   (FileUploadRequest)     returns (StreamObserver);
   rpc DeleteFile   (FileDeleteRequest)     returns (google.protobuf.Empty);
   rpc UpdateFile   (FileUpdateRequest)     returns (google.protobuf.Empty);
   rpc GetFiles     (google.protobuf.Empty) returns (FilesList);
